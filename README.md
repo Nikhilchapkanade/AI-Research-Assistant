@@ -33,7 +33,7 @@ This app utilizes a technique called **Retrieval-Augmented Generation (RAG)**. H
 
 1.  **Clone the repo**
     ```bash
-    git clone [https://github.com/your-username/ai-research-assistant.git](https://github.com/your-username/ai-research-assistant.git)
+    git clone [https://github.com/Nikhilchapkanade/ai-research-assistant.git](https://github.com/your-username/ai-research-assistant.git)
     cd ai-research-assistant
     ```
 
@@ -57,4 +57,4 @@ This app utilizes a technique called **Retrieval-Augmented Generation (RAG)**. H
 * Adding chat history memory.
 
 ---
-*Built with ❤️ by [Your Name]*
+*Built with ❤️ by [Nikhi]*
