@@ -48,8 +48,6 @@ This app utilizes a technique called **Retrieval-Augmented Generation (RAG)**. H
     ```
     *The app will automatically load the pre-built `faiss_index` "brain" and models.*
 
-## 📸 Screenshots
-*(You can add a screenshot of your interface here later)*
 
 ## 🔮 What's Next?
 * Adding support for users to upload their own PDFs dynamically.
@@ -57,4 +55,4 @@ This app utilizes a technique called **Retrieval-Augmented Generation (RAG)**. H
 * Adding chat history memory.
 
 ---
-*Built with ❤️ by [Nikhi]*
+*Built with ❤️ by [Nikhil]*
