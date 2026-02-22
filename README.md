@@ -1,58 +1,91 @@
-# 🤖 Local RAG: Chat with Your Documents
+<p align="center">
+  <h1 align="center">🤖 AI Research Assistant</h1>
+  <p align="center"><strong>Chat with Your Documents — No API keys, no cloud costs, 100% privacy</strong></p>
+  <p align="center"><em>Upload a PDF and ask questions. Everything runs locally on your machine.</em></p>
+</p>
 
-**No API keys. No cloud costs. 100% Privacy.**
-
-## 👋 What is this?
-Ever tried to find a specific answer in a 50-page syllabus or research paper? It’s a pain.
-
-I built this **AI Research Assistant** to solve that. It allows you to upload a PDF (like a university course syllabus) and chat with it naturally. You can ask questions like *"What are the prerequisites?"* or *"Summarize Module 3,"* and it gives you instant answers based *strictly* on the document content.
-
-Unlike most AI wrappers, this **runs entirely on your machine**. It doesn't send your data to ChatGPT or Google.
-
-## ✨ Key Features
-* **💡 Smart Search:** Uses vector embeddings to understand the *meaning* of your question, not just keyword matching.
-* **🔒 Privacy First:** Everything runs locally using Hugging Face models.
-* **⚡ Fast Retrieval:** Powered by FAISS for lightning-fast lookups.
-* **📝 Auto-Summarization:** Can read the whole doc and write a summary for you.
-
-## 🧠 How It Works (The "Magic")
-This app utilizes a technique called **Retrieval-Augmented Generation (RAG)**. Here is the pipeline under the hood:
-
-1.  **The "Brain" (Vector Store):** I used `all-MiniLM-L6-v2` to convert the document text into vector embeddings—essentially turning language into coordinates—and stored them in a **FAISS** index.
-2.  **The "Retriever":** When you ask a question, the system searches the FAISS index for the most relevant paragraphs.
-3.  **The "Reader":** It feeds those paragraphs into `deepset/roberta-base-squad2`, a Transformer model specialized in reading comprehension, to extract the exact answer.
-4.  **The "Summarizer":** For general overviews, I implemented `facebook/bart-large-cnn` to distill the text into a concise abstract.
-
-## 🛠️ Tech Stack
-* **Language:** Python
-* **Interface:** Streamlit
-* **Orchestration:** LangChain
-* **ML Models:** Hugging Face Transformers (`RoBERTa`, `BART`, `MiniLM`)
-
-## 🚀 Getting Started
-
-1.  **Clone the repo**
-    ```bash
-    git clone [https://github.com/Nikhilchapkanade/ai-research-assistant.git](https://github.com/your-username/ai-research-assistant.git)
-    cd ai-research-assistant
-    ```
-
-2.  **Install dependencies**
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-3.  **Run the App**
-    ```bash
-    streamlit run app.py
-    ```
-    *The app will automatically load the pre-built `faiss_index` "brain" and models.*
-
-
-## 🔮 What's Next?
-* Adding support for users to upload their own PDFs dynamically.
-* Integrating a generative LLM (like Llama-3) for more conversational replies.
-* Adding chat history memory.
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Streamlit-App-FF4B4B?style=flat-square&logo=streamlit&logoColor=white"/>
+  <img src="https://img.shields.io/badge/FAISS-Vector_DB-0099FF?style=flat-square"/>
+  <img src="https://img.shields.io/badge/HuggingFace-Models-FFD21E?style=flat-square&logo=huggingface&logoColor=black"/>
+  <img src="https://img.shields.io/badge/100%25-Local-green?style=flat-square"/>
+</p>
 
 ---
-*Built with ❤️ by [Nikhil]*
+
+## 🧠 How It Works
+
+This app uses **Retrieval-Augmented Generation (RAG)** — entirely offline:
+
+```
+  Your Question
+       │
+       ▼
+  ┌──────────────────┐     Top 3 matches     ┌──────────────┐
+  │  MiniLM-L6-v2    │ ──────────────────────►│  RoBERTa     │
+  │  (Embeddings)    │                        │  (QA Reader) │
+  │       +          │                        │              │
+  │  FAISS Index     │                        │  Extracts    │
+  │  (Vector Search) │                        │  exact answer│
+  └──────────────────┘                        └──────────────┘
+```
+
+| Pipeline Step | Model | What It Does |
+|--------------|-------|-------------|
+| 🧠 **Embeddings** | `all-MiniLM-L6-v2` | Converts text into vector coordinates |
+| 🔍 **Retrieval** | FAISS | Lightning-fast similarity search |
+| 📖 **Reading** | `deepset/roberta-base-squad2` | Extracts precise answers from context |
+| 📝 **Summarization** | `facebook/bart-large-cnn` | Condenses full document into TL;DR |
+
+---
+
+## ✨ Features
+
+- 💡 **Smart Search** — understands meaning, not just keywords
+- 🔒 **Privacy First** — everything runs locally via Hugging Face
+- ⚡ **Fast Retrieval** — FAISS vector index for instant lookups
+- 📝 **Auto-Summarization** — one-click document summary
+
+---
+
+## 🚀 Quick Start
+
+```bash
+# 1. Clone
+git clone https://github.com/Nikhilchapkanade/AI-Research-Assistant.git
+cd AI-Research-Assistant
+
+# 2. Install
+pip install -r requirements.txt
+
+# 3. Run
+streamlit run app.py
+```
+
+*The app automatically loads the pre-built `faiss_index` and models.*
+
+---
+
+## 📁 Project Structure
+
+```
+AI-Research-Assistant/
+├── app.py              # Streamlit interface + RAG pipeline
+├── faiss_index/        # Pre-built vector database
+├── data.pdf            # Sample document
+└── requirements.txt
+```
+
+---
+
+## 🛠️ Tech Stack
+
+| Component | Technology |
+|-----------|-----------|
+| Interface | Streamlit |
+| Orchestration | LangChain |
+| Vector Store | FAISS |
+| QA Model | RoBERTa (deepset/roberta-base-squad2) |
+| Summarizer | BART (facebook/bart-large-cnn) |
+| Embeddings | Sentence Transformers (MiniLM-L6-v2) |
